@@ -6,7 +6,7 @@ name: "Terraform Plan & Apply"
 on:
   push:
     branches:
-      - 'ulrich'
+      - 'kevin'
 
 env:
   TF_CLOUD_ORGANIZATION: "kevin-org"
