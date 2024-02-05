@@ -3,7 +3,7 @@ name: Create Terraform Cloud Workspaces
 on:
   push:
     branches:
-      - ulrich
+      - toto
 
 jobs:
   create-workspace:
