@@ -9,7 +9,7 @@ on:
       - 'ulrich'
 
 env:
-  TF_CLOUD_ORGANIZATION: "ulrichnoumsi"
+  TF_CLOUD_ORGANIZATION: "kevin-org"
   TF_API_URL: "app.terraform.io"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   #TF_WORKSPACE: $GITHUB_REF
