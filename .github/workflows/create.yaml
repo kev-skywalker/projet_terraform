@@ -1,0 +1,40 @@
+name: Create Terraform Cloud Workspaces
+
+on:
+  push:
+    branches:
+      - ulrich
+
+jobs:
+  create-workspace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Terraform Cloud workspace
+        env:
+          TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+          ORG_NAME: kevin-org
+          TERRAFORM_VERSION: 1
+          TERRAFORM_CLOUD_HOSTNAME: app.terraform.io
+        run: |
+          WORKSPACE_NAME=$(echo $GITHUB_REF | cut -d / -f 3)
+          echo "Nom du workspace: $WORKSPACE_NAME"
+
+          curl \
+            --header "Authorization: Bearer $TF_API_TOKEN" \
+            --header "Content-Type: application/vnd.api+json" \
+            --request POST \
+            --data @- \
+            "https://$TERRAFORM_CLOUD_HOSTNAME/api/v2/organizations/$ORG_NAME/workspaces" <<EOF
+          {
+            "data": {
+              "type": "workspaces",
+              "attributes": {
+                "name": "$WORKSPACE_NAME",
+                "terraform_version": "$TERRAFORM_VERSION"
+              }
+            }
+          }
+          EOF
